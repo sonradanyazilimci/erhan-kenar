@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yönetim Paneli Girişi | Erhan Kenar</title>
+<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<main class="auth-page">
+  <div class="hero__bg">
+    <div class="hero__blob hero__blob--1"></div>
+    <div class="hero__blob hero__blob--2"></div>
+    <div class="hero__blob hero__blob--3"></div>
+    <div class="hero__noise"></div>
+  </div>
+
+  <div class="auth-card glass" id="authCard">
+    <!-- Giriş Formu -->
+    <div id="authFormWrap">
+      <div class="auth-card__logo text-gradient">EK.</div>
+      <p class="auth-card__subtitle">Yönetim paneline erişmek için giriş yapın</p>
+
+      <form class="auth-form" id="loginForm" novalidate>
+        <div class="field">
+          <label for="username">Kullanıcı Adı</label>
+          <input type="text" id="username" autocomplete="username" required>
+          <span class="field__error"></span>
+        </div>
+        <div class="field">
+          <label for="password">Şifre</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+          <button type="button" class="field__password-toggle">👁️</button>
+          <span class="field__error"></span>
+        </div>
+        <div class="auth-remember">
+          <label><input type="checkbox" id="rememberMe"> Beni Hatırla</label>
+          <a href="#" id="forgotPasswordLink">Şifremi Unuttum</a>
+        </div>
+        <button type="submit" class="btn btn--primary btn--block" id="loginSubmit">Giriş Yap</button>
+      </form>
+
+      <div class="auth-card__footer"><a href="index.html">← Siteye dön</a></div>
+    </div>
+
+    <!-- Başarılı Giriş Durumu -->
+    <div class="auth-status" id="authSuccess">
+      <svg class="auth-success-icon" viewBox="0 0 52 52" fill="none" stroke="#34d399" stroke-width="3">
+        <circle cx="26" cy="26" r="23"/>
+        <path d="M15 27l7 7 15-15" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2 class="auth-status__title">Giriş Başarılı</h2>
+      <p class="auth-status__desc">Yönetim paneline yönlendiriliyorsunuz...</p>
+    </div>
+  </div>
+</main>
+
+<!-- Şifremi Unuttum Modalı -->
+<div class="modal-overlay" id="forgotModal">
+  <div class="modal glass">
+    <h3 class="modal__title">Şifremi Unuttum</h3>
+    <p style="color:var(--text-muted);font-size:1.4rem;margin-bottom:var(--space-2);">Kayıtlı e-posta adresinizi girin, size bir sıfırlama bağlantısı gönderelim.</p>
+    <form id="forgotForm">
+      <div class="field">
+        <label for="resetEmail">E-posta</label>
+        <input type="email" id="resetEmail" required>
+        <span class="field__error"></span>
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="btn btn--ghost btn--sm" id="forgotCancel">Vazgeç</button>
+        <button type="submit" class="btn btn--primary btn--sm">Gönder</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-init.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/animations.js"></script>
+<script>
+(async function () {
+  await Auth.waitForAuthReady();
+  await Storage.init();
+  UI.initTheme();
+  UI.attachRipple();
+  UI.initPasswordToggles();
+  UI.initModalCloseHandlers();
+  Animations.initCustomCursor();
+
+  const rememberedUser = Auth.getRememberedUsername();
+  if (rememberedUser) {
+    document.getElementById('username').value = rememberedUser;
+    document.getElementById('rememberMe').checked = true;
+  }
+
+  // Zaten giriş yapılmışsa doğrudan admin paneline yönlendir
+  if (Auth.isAuthenticated()) {
+    window.location.href = 'admin.html';
+    return;
+  }
+
+  const form = document.getElementById('loginForm');
+  const card = document.getElementById('authCard');
+  const submitBtn = document.getElementById('loginSubmit');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+
+    const validUser = UI.validateField(usernameInput, { required: true });
+    const validPass = UI.validateField(passwordInput, { required: true });
+    if (!(validUser && validPass)) return;
+
+    submitBtn.textContent = 'Kontrol ediliyor...';
+    submitBtn.disabled = true;
+
+    const remember = document.getElementById('rememberMe').checked;
+    const result = await Auth.login(usernameInput.value, passwordInput.value, remember);
+
+    if (result.success) {
+      card.classList.add('is-success');
+      document.getElementById('authFormWrap').style.display = 'none';
+      document.getElementById('authSuccess').classList.add('is-active');
+      UI.toast('Giriş başarılı, yönlendiriliyorsunuz.', 'success');
+      setTimeout(() => Animations.pageTransitionTo('admin.html'), 1200);
+    } else {
+      submitBtn.textContent = 'Giriş Yap';
+      submitBtn.disabled = false;
+      card.classList.add('is-error');
+      UI.validateField(passwordInput, { required: true });
+      passwordInput.closest('.field').querySelector('.field__error').textContent = result.message;
+      passwordInput.closest('.field').classList.add('has-error');
+      UI.toast(result.message, 'error');
+      setTimeout(() => card.classList.remove('is-error'), 500);
+    }
+  });
+
+  // Şifremi unuttum modalı
+  document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
+    e.preventDefault();
+    UI.openModal('forgotModal');
+  });
+  document.getElementById('forgotCancel').addEventListener('click', () => UI.closeModal('forgotModal'));
+  document.getElementById('forgotForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const emailInput = document.getElementById('resetEmail');
+    if (!UI.validateField(emailInput, { required: true, email: true })) return;
+    const result = await Auth.requestPasswordReset(emailInput.value);
+    UI.toast(result.message, 'success', 5000);
+    UI.closeModal('forgotModal');
+    e.target.reset();
+  });
+})();
+</script>
+</body>
+</html>

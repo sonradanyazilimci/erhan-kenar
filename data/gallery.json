@@ -1,0 +1,11 @@
+[
+  { "id": "g1", "type": "image", "src": "assets/images/gallery-1.svg", "thumb": "assets/images/gallery-1.svg", "title": "Marka Kimliği Çalışması", "category": "Tasarım" },
+  { "id": "g2", "type": "image", "src": "assets/images/gallery-2.svg", "thumb": "assets/images/gallery-2.svg", "title": "Mobil Uygulama Arayüzü", "category": "UI/UX" },
+  { "id": "g3", "type": "video", "src": "assets/videos/demo-1.mp4", "thumb": "assets/images/gallery-3.svg", "title": "Ürün Tanıtım Videosu", "category": "Video" },
+  { "id": "g4", "type": "image", "src": "assets/images/gallery-4.svg", "thumb": "assets/images/gallery-4.svg", "title": "Dashboard Konsepti", "category": "UI/UX" },
+  { "id": "g5", "type": "image", "src": "assets/images/gallery-5.svg", "thumb": "assets/images/gallery-5.svg", "title": "Etkinlik Fotoğrafları", "category": "Fotoğraf" },
+  { "id": "g6", "type": "image", "src": "assets/images/gallery-6.svg", "thumb": "assets/images/gallery-6.svg", "title": "E-ticaret Arayüzü", "category": "UI/UX" },
+  { "id": "g7", "type": "image", "src": "assets/images/gallery-7.svg", "thumb": "assets/images/gallery-7.svg", "title": "İllüstrasyon Serisi", "category": "Tasarım" },
+  { "id": "g8", "type": "video", "src": "assets/videos/demo-2.mp4", "thumb": "assets/images/gallery-8.svg", "title": "Motion Design Örneği", "category": "Video" },
+  { "id": "g9", "type": "image", "src": "assets/images/gallery-9.svg", "thumb": "assets/images/gallery-9.svg", "title": "Ofis Çekimi", "category": "Fotoğraf" }
+]

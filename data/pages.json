@@ -1,0 +1,118 @@
+{
+  "site": {
+    "title": "Erhan Kenar | Front-End Developer & UI/UX Designer",
+    "logoText": "EK.",
+    "favicon": "assets/icons/favicon.svg",
+    "themeMode": "auto",
+    "accentColor": "#7c5cff",
+    "font": "Inter",
+    "animationSpeed": "normal",
+    "backgroundStyle": "blobs"
+  },
+  "navbar": {
+    "menu": [
+      { "id": "m1", "label": "Anasayfa", "target": "#home", "order": 1 },
+      { "id": "m2", "label": "Hakkımda", "target": "#about", "order": 2 },
+      { "id": "m3", "label": "Projelerim", "target": "#projects", "order": 3 },
+      { "id": "m4", "label": "Blog", "target": "#blog", "order": 4 },
+      { "id": "m5", "label": "Galeri", "target": "#gallery", "order": 5 },
+      { "id": "m6", "label": "Hizmetler", "target": "#services", "order": 6 },
+      { "id": "m7", "label": "İletişim", "target": "#contact", "order": 7 }
+    ]
+  },
+  "hero": {
+    "greeting": "Merhaba, ben",
+    "name": "Erhan Kenar",
+    "title": "Front-End Developer & UI/UX Designer",
+    "description": "Modern, performanslı ve etkileyici dijital deneyimler tasarlıyor, hayata geçiriyorum. Detaylara önem veren, kullanıcı odaklı bir yaklaşımla çalışıyorum.",
+    "cvUrl": "assets/files/cv.pdf",
+    "avatar": "assets/images/avatar-hero.svg",
+    "buttons": { "cv": "CV İndir", "contact": "İletişime Geç", "portfolio": "Projeleri İncele" }
+  },
+  "about": {
+    "heading": "Hakkımda",
+    "bio": "5+ yıllık deneyime sahip bir front-end geliştirici ve UI/UX tasarımcısıyım. Kullanıcı deneyimini merkeze alan, performanstan ödün vermeyen arayüzler tasarlıyorum. Kariyerim boyunca kurumsal projelerden startup ürünlerine kadar geniş bir yelpazede çalıştım.",
+    "experiences": [
+      { "role": "Kıdemli Front-End Developer", "company": "Nova Digital", "period": "2023 - Günümüz" },
+      { "role": "UI/UX Tasarımcı", "company": "Pixelworks Studio", "period": "2021 - 2023" },
+      { "role": "Front-End Developer", "company": "Freelance", "period": "2019 - 2021" }
+    ],
+    "hobbies": ["Fotoğrafçılık", "Satranç", "Motosiklet", "Uzun Yürüyüşler"],
+    "interests": ["Minimal Tasarım", "Yapay Zeka", "Tipografi", "Açık Kaynak"],
+    "skills": [
+      { "name": "HTML / CSS", "level": 98 },
+      { "name": "JavaScript (ES6+)", "level": 95 },
+      { "name": "UI/UX Tasarım", "level": 90 },
+      { "name": "Performans Optimizasyonu", "level": 88 },
+      { "name": "Animasyon & Motion", "level": 85 }
+    ],
+    "stats": [
+      { "label": "Tamamlanan Proje", "value": 120 },
+      { "label": "Mutlu Müşteri", "value": 80 },
+      { "label": "Yıllık Deneyim", "value": 5 },
+      { "label": "Fincan Kahve", "value": 1500 }
+    ]
+  },
+  "projects": [
+    { "id": "p1", "title": "Finexa Banka Paneli", "category": "Web Uygulaması", "image": "assets/images/portfolio-1.svg", "description": "Kurumsal bankacılık paneli için kapsamlı arayüz tasarımı ve geliştirmesi.", "link": "#", "githubLink": "https://github.com/", "tech": ["React", "TypeScript", "Node.js"], "features": ["Gerçek zamanlı bakiye takibi", "Rol bazlı yetkilendirme", "Çoklu dil desteği"] },
+    { "id": "p2", "title": "Loop Müzik Platformu", "category": "UI/UX", "image": "assets/images/portfolio-2.svg", "description": "Müzik akış platformu için kullanıcı deneyimi tasarımı.", "link": "#", "githubLink": "https://github.com/", "tech": ["Figma", "Vue.js", "Tailwind CSS"], "features": ["Kişiselleştirilmiş çalma listeleri", "Karanlık mod", "Sürükle-bırak playlist düzenleme"] },
+    { "id": "p3", "title": "Orbit E-ticaret", "category": "E-ticaret", "image": "assets/images/portfolio-3.svg", "description": "Yüksek dönüşüm odaklı e-ticaret arayüzü.", "link": "#", "githubLink": "https://github.com/", "tech": ["Next.js", "Stripe", "PostgreSQL"], "features": ["Tek sayfa ödeme akışı", "Ürün karşılaştırma", "Stok bazlı öneri motoru"] },
+    { "id": "p4", "title": "Nimbus Hava Durumu", "category": "Mobil Uygulama", "image": "assets/images/portfolio-4.svg", "description": "Minimal ve akıcı bir hava durumu uygulaması tasarımı.", "link": "#", "githubLink": "https://github.com/", "tech": ["React Native", "OpenWeather API"], "features": ["Saatlik ve haftalık tahmin", "Konum bazlı bildirimler", "Offline önbellekleme"] },
+    { "id": "p5", "title": "Vantage Analitik", "category": "Web Uygulaması", "image": "assets/images/portfolio-5.svg", "description": "Veri odaklı analitik dashboard tasarımı ve geliştirmesi.", "link": "#", "githubLink": "https://github.com/", "tech": ["React", "D3.js", "Express"], "features": ["Özelleştirilebilir grafik widget'ları", "PDF/Excel dışa aktarma", "Rol bazlı raporlama"] },
+    { "id": "p6", "title": "Aurora Marka Kimliği", "category": "Tasarım", "image": "assets/images/portfolio-6.svg", "description": "Uçtan uca marka kimliği ve dijital varlık tasarımı.", "link": "#", "githubLink": "https://github.com/", "tech": ["Illustrator", "Figma", "After Effects"], "features": ["Logo & tipografi sistemi", "Marka kılavuzu", "Sosyal medya şablonları"] }
+  ],
+  "testimonials": [
+    { "id": "t1", "name": "Selin Kaya", "role": "Ürün Müdürü, Nova Digital", "avatar": "assets/images/client-1.svg", "rating": 5, "message": "Erhan ile çalışmak proje sürecimizi tamamen değiştirdi. Detaylara gösterdiği özen inanılmaz." },
+    { "id": "t2", "name": "Burak Aksoy", "role": "Kurucu, Pixelworks", "avatar": "assets/images/client-2.svg", "rating": 5, "message": "Hem tasarım hem geliştirme tarafında gösterdiği performans beklentilerimizin üzerindeydi." },
+    { "id": "t3", "name": "Elif Şahin", "role": "Pazarlama Direktörü, Orbit", "avatar": "assets/images/client-3.svg", "rating": 4, "message": "Zamanında teslimat ve yüksek kalite bir arada. Kesinlikle tekrar çalışırız." }
+  ],
+  "clients": [
+    { "id": "c1", "name": "Nova Digital", "logo": "assets/images/logo-1.svg" },
+    { "id": "c2", "name": "Pixelworks", "logo": "assets/images/logo-2.svg" },
+    { "id": "c3", "name": "Orbit", "logo": "assets/images/logo-3.svg" },
+    { "id": "c4", "name": "Finexa", "logo": "assets/images/logo-4.svg" },
+    { "id": "c5", "name": "Vantage", "logo": "assets/images/logo-5.svg" },
+    { "id": "c6", "name": "Aurora", "logo": "assets/images/logo-6.svg" }
+  ],
+  "services": [
+    { "id": "s1", "icon": "layout", "title": "UI/UX Tasarım", "description": "Kullanıcı odaklı, estetik ve işlevsel arayüz tasarımları." },
+    { "id": "s2", "icon": "code", "title": "Front-End Geliştirme", "description": "Modern, performanslı ve erişilebilir web uygulamaları geliştirme." },
+    { "id": "s3", "icon": "layers", "title": "Marka Kimliği", "description": "Logo, renk paleti ve tipografi ile bütünsel marka kimliği oluşturma." },
+    { "id": "s4", "icon": "zap", "title": "Performans Optimizasyonu", "description": "Hızlı yüklenen, SEO dostu ve ölçeklenebilir web siteleri." }
+  ],
+  "faq": [
+    { "id": "f1", "question": "Proje süreciniz nasıl işliyor?", "answer": "Keşif görüşmesi, wireframe, tasarım, geliştirme ve test aşamalarından oluşan şeffaf bir süreç izliyorum." },
+    { "id": "f2", "question": "Ortalama teslim süreniz nedir?", "answer": "Proje kapsamına bağlı olarak 2-6 hafta arasında değişmektedir." },
+    { "id": "f3", "question": "Revizyon hakkı sunuyor musunuz?", "answer": "Her proje paketinde belirli sayıda revizyon hakkı standart olarak sunulmaktadır." },
+    { "id": "f4", "question": "Uzaktan çalışıyor musunuz?", "answer": "Evet, dünyanın her yerinden müşterilerle uzaktan çalışabiliyorum." }
+  ],
+  "contact": {
+    "email": "erhankenar35@gmail.com",
+    "phone": "+90 555 123 45 67",
+    "address": "İstanbul, Türkiye",
+    "mapEmbed": "https://www.google.com/maps",
+    "social": {
+      "instagram": "https://instagram.com/",
+      "linkedin": "https://linkedin.com/",
+      "github": "https://github.com/",
+      "youtube": "https://youtube.com/",
+      "x": "https://x.com/",
+      "facebook": "https://facebook.com/",
+      "tiktok": "https://tiktok.com/"
+    }
+  },
+  "footer": {
+    "text": "Modern dijital deneyimler tasarlıyor ve geliştiriyorum.",
+    "copyright": "© 2026 Erhan Kenar. Tüm hakları saklıdır."
+  },
+  "seo": {
+    "siteTitle": "Erhan Kenar | Front-End Developer & UI/UX Designer",
+    "metaDescription": "Modern, performanslı ve premium web deneyimleri tasarlayan front-end developer ve UI/UX tasarımcısı.",
+    "keywords": "front-end developer, ui ux tasarımcı, web tasarım, portföy",
+    "ogTitle": "Erhan Kenar | Portföy",
+    "ogDescription": "Modern ve premium web deneyimleri.",
+    "ogImage": "assets/images/og-cover.svg",
+    "robots": "User-agent: *\nAllow: /",
+    "sitemap": "https://example.com/sitemap.xml"
+  }
+}
