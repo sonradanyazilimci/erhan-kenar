@@ -1,114 +1,265 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yönetim Paneli | Erhan Kenar</title>
-<link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/admin.css">
-<link rel="stylesheet" href="css/animations.css">
-<link rel="stylesheet" href="css/responsive.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menü Yönetimi</title>
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/admin.css" />
 </head>
-<body class="admin-body">
+<body>
 
-<div class="admin-sidebar-overlay" id="sidebarOverlay"></div>
+<div id="configMissing"></div>
 
-<div class="admin-layout">
-  <!-- SIDEBAR -->
-  <aside class="admin-sidebar" id="adminSidebar">
-    <div class="admin-sidebar__logo text-gradient">EK. Panel</div>
-    <nav class="admin-sidebar__nav" id="adminNav">
-      <span class="admin-nav-group-title">Genel</span>
-      <a class="admin-nav-link" data-view="dashboard"><span class="icon">📊</span> Dashboard</a>
+<div id="loginScreen" class="login-screen">
+  <form id="loginForm" class="login-card">
+    <p class="login-eyebrow">Yönetim Paneli</p>
+    <h1 class="login-title">Giriş Yap</h1>
+    <input type="email" id="loginEmail" placeholder="E-posta" autocomplete="username" required />
+    <input type="password" id="loginPassword" placeholder="Şifre" autocomplete="current-password" required />
+    <button type="submit">Giriş Yap</button>
+    <p class="login-error" id="loginError"></p>
+    <p class="login-hint">Giriş bilgileri Firebase Authentication üzerinden yönetilir. Kullanıcı eklemek için README.md dosyasına bakın.</p>
+  </form>
+</div>
 
-      <span class="admin-nav-group-title">İçerik</span>
-      <a class="admin-nav-link" data-view="blog"><span class="icon">📝</span> Blog Yönetimi</a>
-      <a class="admin-nav-link" data-view="projects"><span class="icon">💼</span> Projelerim</a>
-      <a class="admin-nav-link" data-view="pages"><span class="icon">📄</span> Sayfa Yönetimi</a>
-      <a class="admin-nav-link" data-view="media"><span class="icon">🖼️</span> Medya Yönetimi</a>
-      <a class="admin-nav-link" data-view="menu"><span class="icon">🧭</span> Menü Yönetimi</a>
-
-      <span class="admin-nav-group-title">Ayarlar</span>
-      <a class="admin-nav-link" data-view="social"><span class="icon">🔗</span> Sosyal Medya</a>
-      <a class="admin-nav-link" data-view="seo"><span class="icon">🔍</span> SEO Yönetimi</a>
-      <a class="admin-nav-link" data-view="theme"><span class="icon">🎨</span> Tema Yönetimi</a>
-      <a class="admin-nav-link" data-view="user"><span class="icon">👤</span> Kullanıcı Ayarları</a>
-    </nav>
-    <div class="admin-sidebar__footer">
-      <a class="admin-nav-link" id="siteViewLink" href="index.html" target="_blank"><span class="icon">🌐</span> Siteyi Görüntüle</a>
-      <a class="admin-nav-link" id="logoutBtn" href="#"><span class="icon">🚪</span> Çıkış Yap</a>
+<div id="adminApp" class="admin-app hidden">
+  <header class="admin-header">
+    <div>
+      <p class="admin-eyebrow">Yönetim Paneli</p>
+      <h1 class="admin-title">Menü Yönetimi</h1>
     </div>
-  </aside>
+    <div class="admin-header-actions">
+      <a href="index.html" target="_blank" class="btn-ghost">Menüyü Görüntüle ↗</a>
+      <button id="logoutBtn" class="btn-ghost">Çıkış</button>
+    </div>
+  </header>
 
-  <!-- MAIN -->
-  <div class="admin-main">
-    <header class="admin-topbar">
-      <div style="display:flex;align-items:center;gap:var(--space-2);">
-        <button class="icon-btn admin-sidebar-toggle" id="sidebarToggle" aria-label="Menü">☰</button>
-        <h1 class="admin-topbar__title" id="topbarTitle">Dashboard</h1>
-      </div>
-      <div class="admin-topbar__actions">
-        <button class="theme-toggle" id="themeToggle" aria-label="Temayı değiştir">
-          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
-        </button>
-        <div class="dropdown">
-          <button class="icon-btn" id="notifBtn">🔔<span class="icon-btn__badge" id="notifBadge">0</span></button>
-          <div class="dropdown__panel" id="notifPanel">
-            <div style="font-weight:700;font-size:1.4rem;padding:0.6rem;">Bildirimler</div>
-            <div id="notifList"></div>
-          </div>
-        </div>
-        <div class="dropdown">
-          <button class="admin-user" id="userMenuBtn">
-            <img id="userAvatar" src="assets/images/avatar.svg" alt="Kullanıcı">
-            <span class="admin-user__name" id="userName">Yönetici</span>
-          </button>
-          <div class="dropdown__panel" id="userPanel">
-            <div class="dropdown__item dropdown__item--link" data-view="user"><span>👤</span> Profilim</div>
-            <div class="dropdown__item dropdown__item--link" data-view="theme"><span>🎨</span> Tema Ayarları</div>
-            <div class="dropdown__item dropdown__item--link" id="userLogout"><span>🚪</span> Çıkış Yap</div>
-          </div>
-        </div>
-      </div>
-    </header>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="menu">Menü</button>
+    <button class="tab-btn" data-tab="photos">Fotoğraf Linkleri</button>
+    <button class="tab-btn" data-tab="settings">Ayarlar</button>
+  </nav>
 
-    <div class="admin-content" id="adminContent"></div>
-  </div>
+  <section id="tab-menu" class="tab-panel active">
+    <div class="panel-head">
+      <h2>Kategoriler</h2>
+      <form id="addCategoryForm" class="inline-form">
+        <input type="text" id="newCategoryName" placeholder="Yeni kategori adı (örn. Kokteyl)" required />
+        <button type="submit">Ekle</button>
+      </form>
+    </div>
+    <div id="categoryList" class="category-list"></div>
+    <p id="emptyMenuNote" class="hint-text hidden" style="margin-top:14px;">
+      Menünüz boş. Yukarıdan kategori ekleyerek başlayabilir, ya da
+      <button type="button" id="seedBtn" class="btn-ghost small" style="display:inline-flex;">örnek menüyü yükle</button>
+      diyerek örnek içerikle başlayabilirsiniz.
+    </p>
+  </section>
+
+  <section id="tab-photos" class="tab-panel">
+    <div class="panel-head">
+      <h2>Fotoğraf Linkleri</h2>
+      <button type="button" id="savePhotosBtn" class="btn-primary">Tümünü Kaydet</button>
+    </div>
+    <p class="hint-text" style="margin-bottom:14px;">
+      Her ürün için fotoğraf linki (tam URL, örn. <code>https://.../foto.jpg</code>) veya proje içi dosya yolu
+      (örn. <code>media/urun.jpg</code>) girin. İstediğiniz kadar alanı değiştirip en sonda tek seferde
+      <strong>"Tümünü Kaydet"</strong>e basmanız yeterli.
+    </p>
+    <div id="photoLinksTable" class="photo-links-table"></div>
+    <p id="emptyPhotosNote" class="hint-text hidden">Henüz ürün eklenmemiş. Önce Menü sekmesinden ürün ekleyin.</p>
+    <p class="save-status" id="photosStatus"></p>
+  </section>
+
+  <section id="tab-settings" class="tab-panel">
+    <h2>Genel Ayarlar</h2>
+    <form id="settingsForm" class="settings-form">
+      <div class="field-grid">
+        <label>İşletme Adı
+          <input type="text" name="businessName" required />
+        </label>
+        <label>Kullanıcı Adı / Handle
+          <input type="text" name="handle" placeholder="@isletmeadi" />
+        </label>
+        <label>Alt Başlık (Tagline)
+          <input type="text" name="tagline" placeholder="örn. Ateş, İçki ve İyi Sohbet" />
+        </label>
+        <label>Para Birimi
+          <input type="text" name="currency" placeholder="₺" />
+        </label>
+        <label>Vurgu Rengi
+          <input type="color" name="accentColor" />
+        </label>
+      </div>
+
+      <label class="full">İndirim / Duyuru Metni
+        <textarea name="discountText" rows="2" placeholder="örn. Hafta içi 17:00'a kadar %20 indirim"></textarea>
+      </label>
+
+      <label class="full">Alerjen Bilgisi
+        <textarea name="allergensText" rows="3"></textarea>
+      </label>
+
+      <p class="upload-label" style="margin:4px 0 10px;">Alt Bağlantılar (menü altında, doldurulan alanlar görünür)</p>
+      <div class="field-grid">
+        <label>Instagram Linki
+          <input type="text" name="instagramUrl" placeholder="https://instagram.com/kullaniciadi" />
+        </label>
+        <label>Google Haritalar — Yol Tarifi Linki
+          <input type="text" name="mapsDirectionsUrl" placeholder="https://maps.app.goo.gl/..." />
+        </label>
+        <label>Google Haritalar — Yorumlar Linki
+          <input type="text" name="mapsReviewsUrl" placeholder="https://g.page/r/.../review" />
+        </label>
+        <label>Wi-Fi Ağ Adı
+          <input type="text" name="wifiName" placeholder="örn. Sokak Bari Misafir" />
+        </label>
+        <label>Wi-Fi Şifresi
+          <input type="text" name="wifiPassword" placeholder="örn. sokakbari2024" />
+        </label>
+      </div>
+
+      <div class="upload-grid">
+        <div class="upload-box">
+          <p class="upload-label">Logo</p>
+          <img id="logoPreview" class="preview-img preview-round hidden" />
+          <input type="file" id="logoInput" accept="image/*" />
+          <button type="button" class="btn-ghost small" id="clearLogoBtn">Logoyu Kaldır</button>
+        </div>
+
+        <div class="upload-box">
+          <p class="upload-label">Karşılama Videosu</p>
+          <video id="videoPreview" class="preview-img hidden" muted loop autoplay playsinline></video>
+          <input type="text" id="videoUrlInput" placeholder="media/hero.mp4 (proje içi dosya) veya https://.../video.mp4" />
+          <p class="hint-text">Önerilen yöntem: video dosyasını <code>media/</code> klasörüne koyup GitHub'a push edin, sonra buraya <code>media/hero.mp4</code> gibi dosya yolunu yazın — Storage/Blaze planı gerektirmez, video GitHub'dan servis edilir. Detaylar için <code>media/README.md</code>'ye bakın.</p>
+          <p class="hint-text" style="text-align:center;">— veya —</p>
+          <input type="file" id="videoInput" accept="video/mp4,video/webm,video/quicktime" />
+          <p class="hint-text">Dosya olarak buradan yüklemek Firebase Storage (Blaze planı) gerektirir.</p>
+          <button type="button" class="btn-ghost small" id="clearVideoBtn">Videoyu Kaldır (Gradyan kullan)</button>
+          <p class="hint-text">Video eklenmezse otomatik olarak hareketli kor-ateşi gradyanı gösterilir.</p>
+        </div>
+
+        <div class="upload-box">
+          <p class="upload-label">Karşılama Fotoğrafı (video yoksa)</p>
+          <img id="heroImagePreview" class="preview-img hidden" />
+          <input type="file" id="heroImageInput" accept="image/*" />
+          <button type="button" class="btn-ghost small" id="clearHeroImageBtn">Fotoğrafı Kaldır</button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-primary">Ayarları Kaydet</button>
+      <p class="save-status" id="settingsStatus"></p>
+    </form>
+
+    <h2 class="section-gap">Şifre Değiştir</h2>
+    <form id="passwordForm" class="settings-form">
+      <div class="field-grid">
+        <label>Mevcut Şifre
+          <input type="password" name="currentPassword" required />
+        </label>
+        <label>Yeni Şifre
+          <input type="password" name="newPassword" required minlength="4" />
+        </label>
+      </div>
+      <button type="submit" class="btn-primary">Şifreyi Güncelle</button>
+      <p class="save-status" id="passwordStatus"></p>
+    </form>
+  </section>
 </div>
 
-<!-- Onay Modalı -->
-<div class="modal-overlay" id="confirmModal">
-  <div class="modal glass">
-    <h3 class="modal__title" id="confirmTitle">Emin misiniz?</h3>
-    <p id="confirmMessage" style="color:var(--text-muted);font-size:1.4rem;"></p>
-    <div class="modal__actions">
-      <button class="btn btn--ghost btn--sm" id="confirmCancel">Vazgeç</button>
-      <button class="btn btn--primary btn--sm" id="confirmOk" style="background:#f87171;">Sil</button>
+<template id="tpl-category">
+  <div class="category-card" data-category>
+    <div class="category-card-head">
+      <input type="text" class="cat-name-input" />
+      <div class="row-actions">
+        <button class="btn-ghost small" data-action="save-category">Kaydet</button>
+        <button class="btn-danger small" data-action="delete-category">Sil</button>
+        <button class="btn-ghost small" data-action="toggle-category">▾</button>
+      </div>
+    </div>
+    <div class="category-card-body">
+      <div class="subcategory-list" data-subcategory-list></div>
+      <form class="inline-form indent" data-add-subcategory>
+        <input type="text" placeholder="Yeni alt kategori adı" required />
+        <button type="submit">Alt Kategori Ekle</button>
+      </form>
     </div>
   </div>
-</div>
+</template>
 
-<!-- Yazı / Öğe Formu Modalı -->
-<div class="modal-overlay" id="formModal">
-  <div class="modal glass" style="width:min(680px,100%);max-height:85vh;overflow-y:auto;">
-    <h3 class="modal__title" id="formModalTitle">Yeni Kayıt</h3>
-    <div id="formModalBody"></div>
+<template id="tpl-subcategory">
+  <div class="subcategory-card" data-subcategory>
+    <div class="subcategory-card-head">
+      <input type="text" class="sub-name-input" />
+      <div class="row-actions">
+        <button class="btn-ghost small" data-action="save-subcategory">Kaydet</button>
+        <button class="btn-danger small" data-action="delete-subcategory">Sil</button>
+        <button class="btn-ghost small" data-action="toggle-subcategory">▾</button>
+      </div>
+    </div>
+    <div class="subcategory-card-body">
+      <div class="product-table" data-product-list></div>
+      <form class="product-form" data-add-product>
+        <div class="field-grid tight">
+          <input type="text" name="name" placeholder="Ürün adı" required />
+          <input type="number" name="price" placeholder="Fiyat" min="0" step="1" required />
+          <input type="number" name="calories" placeholder="Kalori (opsiyonel)" min="0" step="1" />
+          <input type="text" name="badge" placeholder="Rozet emoji (opsiyonel, örn. ⭐)" maxlength="4" />
+        </div>
+        <textarea name="description" placeholder="Açıklama" rows="2"></textarea>
+        <input type="text" name="imageUrl" placeholder="Fotoğraf linki veya media/urun.jpg (opsiyonel)" />
+        <p class="allergen-picker-label">Alerjenler (varsa seçin)</p>
+        <div class="allergen-picker" data-allergen-picker></div>
+        <div class="field-grid tight">
+          <input type="file" name="image" accept="image/*" />
+          <button type="submit" class="btn-primary small">Ürün Ekle</button>
+        </div>
+      </form>
+    </div>
   </div>
-</div>
+</template>
 
-<div class="toast-container" id="toastContainer"></div>
+<template id="tpl-product-row">
+  <div class="product-row" data-product>
+    <img class="product-row-img" />
+    <div class="product-row-info">
+      <input type="text" class="p-name" />
+      <div class="field-grid tight">
+        <input type="number" class="p-price" placeholder="Fiyat" />
+        <input type="number" class="p-calories" placeholder="Kalori" />
+        <input type="text" class="p-badge" placeholder="Rozet" maxlength="4" />
+      </div>
+      <textarea class="p-desc" rows="2" placeholder="Açıklama"></textarea>
+      <input type="text" class="p-image-url" placeholder="Fotoğraf linki veya media/urun.jpg" />
+      <p class="allergen-picker-label">Alerjenler</p>
+      <div class="allergen-picker" data-allergen-picker></div>
+      <div class="field-grid tight">
+        <input type="file" class="p-image" accept="image/*" />
+        <label class="checkbox-label"><input type="checkbox" class="p-clear-image" /> Fotoğrafı kaldır</label>
+      </div>
+    </div>
+    <div class="row-actions column">
+      <button class="btn-ghost small" data-action="save-product">Kaydet</button>
+      <button class="btn-danger small" data-action="delete-product">Sil</button>
+    </div>
+  </div>
+</template>
 
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-<script src="js/firebase-config.js"></script>
-<script src="js/firebase-init.js"></script>
-<script src="js/storage.js"></script>
-<script src="js/auth.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/animations.js"></script>
-<script src="js/admin.js"></script>
+<template id="tpl-photo-row">
+  <div class="photo-row" data-photo-row>
+    <img class="photo-row-thumb" />
+    <div class="photo-row-info">
+      <p class="photo-row-path"></p>
+      <p class="photo-row-name"></p>
+      <input type="text" class="photo-row-input" placeholder="Fotoğraf linki veya media/urun.jpg" />
+    </div>
+  </div>
+</template>
+
+<script type="module" src="js/admin.js"></script>
 </body>
 </html>
